@@ -48,6 +48,16 @@ module alu_tb;
         test(OP_SLT,  32'hFFFFFFFF, 32'd1,        32'd1);         // -1 < 1
         test(OP_SLTU, 32'hFFFFFFFF, 32'd1,        32'd0);         // 4294967295 is not < 1
         test(OP_SLTU, 32'd5,        32'd7,        32'd1);
+        test(OP_ADD,  32'h7FFFFFFF, 32'd1,        32'h80000000);  // Overflow Check
+        test(OP_SUB,  32'd0,        32'd1,        32'hFFFFFFFF);  // Subtracting below 0 gives -1
+        test(OP_AND,  32'hDEADBEEF, 32'd0,        32'd0);         // AND with zeros check
+        test(OP_OR,   32'hDEADBEEF, 32'd0,        32'hDEADBEEF);  // OR with zeros check
+        test(OP_SLL,  32'hDEADBEEF, 32'd0,        32'hDEADBEEF);  // SLL with zero shift
+        test(OP_SRL,  32'hFFFFFFFF, 32'd31,       32'd1);         // SRL with maximum shift
+        test(OP_SRA,  32'hFFFFFFFF, 32'd31,       32'hFFFFFFFF); // SRA with maximum shift
+        test(OP_SLT,  32'd5,        32'd5,        32'd0);         // SLT with equal values
+        test(OP_SLT,  32'h80000000, 32'h7FFFFFFF, 32'd1);         // SLT with signed values
+        test(OP_SLTU, 32'h80000000, 32'h7FFFFFFF, 32'd0);
 
         $display("PASS: %0d tests", tests_run);
         $finish;
