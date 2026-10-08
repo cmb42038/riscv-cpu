@@ -7,7 +7,7 @@ as a personal project. Work in progress.
 
 - [x] ALU (Arithmetic Logic Unit): 10 operations, 29 self-checking tests
 - [x] Register file: 32 registers, 12 self-checking tests
-- [ ] Immediate generator
+- [x] Immediate generator: 5 formats, 10 self-checking tests
 - [ ] Decoder and control unit
 - [ ] Single-cycle top level
 
@@ -25,6 +25,12 @@ Register file:
 
 ```
 verilator --binary --trace -Wall -Wno-fatal --top-module regfile_tb rtl/regfile.v tb/regfile_tb.sv && ./obj_dir/Vregfile_tb
+```
+
+Immediate generator:
+
+```
+verilator --binary --trace -Wall -Wno-fatal --top-module immgen_tb rtl/immgen.v tb/immgen_tb.sv && ./obj_dir/Vimmgen_tb
 ```
 
 Each prints `PASS` with the number of tests when everything is correct.
