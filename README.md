@@ -10,7 +10,7 @@ as a personal project. Work in progress.
 - [x] Immediate generator: 5 formats, 10 self-checking tests
 - [x] Decoder and control unit: 9 instruction types, 17 self-checking tests
 - [x] Program counter and instruction memory: 8 self-checking tests
-- [ ] Data memory
+- [x] Data memory: byte, half and word loads and stores, 15 self-checking tests
 - [ ] Single-cycle top level
 
 ## Running the tests
@@ -45,6 +45,12 @@ Program counter and instruction memory:
 
 ```
 verilator --binary --trace -Wall -Wno-fatal --top-module fetch_tb rtl/pc.v rtl/imem.v tb/fetch_tb.sv && ./obj_dir/Vfetch_tb
+```
+
+Data memory:
+
+```
+verilator --binary --trace -Wall -Wno-fatal --top-module dmem_tb rtl/dmem.v tb/dmem_tb.sv && ./obj_dir/Vdmem_tb
 ```
 
 Each prints `PASS` with the number of tests when everything is correct.
