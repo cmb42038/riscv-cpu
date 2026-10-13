@@ -11,7 +11,9 @@ as a personal project. Work in progress.
 - [x] Decoder and control unit: 9 instruction types, 17 self-checking tests
 - [x] Program counter and instruction memory: 8 self-checking tests
 - [x] Data memory: byte, half and word loads and stores, 15 self-checking tests
-- [ ] Single-cycle top level
+- [x] Single-cycle top level: 4 self-checking tests
+- [ ] Run on the Basys 3 FPGA
+- [ ] 5-stage pipeline
 
 ## Running the tests
 
@@ -51,6 +53,12 @@ Data memory:
 
 ```
 verilator --binary --trace -Wall -Wno-fatal --top-module dmem_tb rtl/dmem.v tb/dmem_tb.sv && ./obj_dir/Vdmem_tb
+```
+
+Full CPU (runs `programs/test.hex` and checks the result):
+
+```
+verilator --binary --trace -Wall -Wno-fatal --top-module cpu_tb rtl/*.v tb/cpu_tb.sv && ./obj_dir/Vcpu_tb
 ```
 
 Each prints `PASS` with the number of tests when everything is correct.
