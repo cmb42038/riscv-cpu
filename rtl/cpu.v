@@ -1,5 +1,7 @@
 // top level for single cycle cpu
-module cpu (
+module cpu #(
+    parameter HEX_FILE = "programs/test.hex"   // program to run, passed down to imem
+) (
     input wire clk,
     input wire rst,
     output wire [31:0] pc_out
@@ -39,7 +41,7 @@ module cpu (
         .pc(pc_out)
     );
 
-    imem imem_inst (
+    imem #(.HEX_FILE(HEX_FILE)) imem_inst (
         .addr(pc_out),
         .instr(instr)
     );

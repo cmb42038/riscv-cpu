@@ -12,6 +12,7 @@ as a personal project. Work in progress.
 - [x] Program counter and instruction memory: 8 self-checking tests
 - [x] Data memory: byte, half and word loads and stores, 15 self-checking tests
 - [x] Single-cycle top level: 4 self-checking tests
+- [x] Runs a compiled C program (loops, function calls, byte and word loads and stores)
 - [ ] Run on the Basys 3 FPGA
 - [ ] 5-stage pipeline
 
@@ -62,3 +63,25 @@ verilator --binary --trace -Wall -Wno-fatal --top-module cpu_tb rtl/*.v tb/cpu_t
 ```
 
 Each prints `PASS` with the number of tests when everything is correct.
+
+## Running a C program
+
+`programs/test_c.c` is compiled with the RISC-V GCC compiler. `programs/start.S`
+sets up the stack and calls `main`, and `programs/link.ld` puts the code at address 0.
+To install the compiler on Ubuntu or WSL:
+
+```
+sudo apt install gcc-riscv64-unknown-elf
+```
+
+Build the program (makes `programs/test_c.hex`):
+
+```
+./programs/build.sh
+```
+
+Run it on the CPU (checks that `main` returned 285):
+
+```
+verilator --binary --trace -Wall -Wno-fatal --top-module c_tb rtl/*.v tb/c_tb.sv && ./obj_dir/Vc_tb
+```
