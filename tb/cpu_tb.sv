@@ -28,18 +28,18 @@ module cpu_tb;
 
         #100;
 
-        if (dut.regfile_inst.regs[1] != 5) begin
-            $display("x1 wrong: got %0d, wanted 5", dut.regfile_inst.regs[1]);
+        if (dut.core.regfile_inst.regs[1] != 5) begin
+            $display("x1 wrong: got %0d, wanted 5", dut.core.regfile_inst.regs[1]);
             errors = errors + 1;
         end
 
-        if (dut.regfile_inst.regs[2] != 10) begin
-            $display("x2 wrong: got %0d, wanted 10", dut.regfile_inst.regs[2]);
+        if (dut.core.regfile_inst.regs[2] != 10) begin
+            $display("x2 wrong: got %0d, wanted 10", dut.core.regfile_inst.regs[2]);
             errors = errors + 1;
         end
 
-        if (dut.regfile_inst.regs[3] != 15) begin
-            $display("x3 wrong: got %0d, wanted 15", dut.regfile_inst.regs[3]);
+        if (dut.core.regfile_inst.regs[3] != 15) begin
+            $display("x3 wrong: got %0d, wanted 15", dut.core.regfile_inst.regs[3]);
             errors = errors + 1;
         end
 

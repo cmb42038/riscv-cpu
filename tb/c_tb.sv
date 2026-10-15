@@ -31,14 +31,14 @@ module c_tb;
         #20000;
 
         // a0 holds what main returned
-        if (dut.regfile_inst.regs[10] != 285) begin
-            $display("a0 wrong: got %0d, wanted 285", $signed(dut.regfile_inst.regs[10]));
+        if (dut.core.regfile_inst.regs[10] != 285) begin
+            $display("a0 wrong: got %0d, wanted 285", $signed(dut.core.regfile_inst.regs[10]));
             errors = errors + 1;
         end
 
         // sp should be back where start.S put it, if every function cleaned up its stack
-        if (dut.regfile_inst.regs[2] != 32'h400) begin
-            $display("sp wrong: got %h, wanted 400", dut.regfile_inst.regs[2]);
+        if (dut.core.regfile_inst.regs[2] != 32'h400) begin
+            $display("sp wrong: got %h, wanted 400", dut.core.regfile_inst.regs[2]);
             errors = errors + 1;
         end
 

@@ -12,6 +12,7 @@ as a personal project. Work in progress.
 - [x] Program counter and instruction memory: 8 self-checking tests
 - [x] Data memory: byte, half and word loads and stores, 15 self-checking tests
 - [x] Single-cycle top level: 4 self-checking tests
+- [x] Core split from memories (`rtl/cpu_core.v`)
 - [x] Runs a compiled C program (loops, function calls, byte and word loads and stores)
 - [ ] Run on the Basys 3 FPGA
 - [ ] 5-stage pipeline
