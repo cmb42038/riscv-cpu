@@ -14,6 +14,7 @@ as a personal project. Work in progress.
 - [x] Single-cycle top level: 4 self-checking tests
 - [x] Core split from memories (`rtl/cpu_core.v`)
 - [x] Runs a compiled C program (loops, function calls, byte and word loads and stores)
+- [x] Memory-mapped LEDs and switches: 3 self-checking tests
 - [ ] Run on the Basys 3 FPGA
 - [ ] 5-stage pipeline
 
@@ -78,11 +79,29 @@ sudo apt install gcc-riscv64-unknown-elf
 Build the program (makes `programs/test_c.hex`):
 
 ```
-./programs/build.sh
+./programs/build.sh test_c
 ```
 
 Run it on the CPU (checks that `main` returned 285):
 
 ```
 verilator --binary --trace -Wall -Wno-fatal --top-module c_tb rtl/*.v tb/c_tb.sv && ./obj_dir/Vc_tb
+```
+
+## LEDs and switches
+
+`rtl/cpu.v` connects the core to the memories and to two I/O addresses:
+
+| Address | What it is |
+|---|---|
+| `0x00000000` - `0x000003FF` | Data memory (1 KB) |
+| `0x80000000` | LEDs (store to set them, load to read back) |
+| `0x80000004` | Switches (load only) |
+
+`programs/io_test.c` sets LEDs, reads back, copies switches to the LEDs.
+Build it and run it:
+
+```
+./programs/build.sh io_test
+verilator --binary --trace -Wall -Wno-fatal --top-module io_tb rtl/*.v tb/io_tb.sv && ./obj_dir/Vio_tb
 ```

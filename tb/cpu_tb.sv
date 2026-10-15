@@ -13,6 +13,8 @@ module cpu_tb;
     cpu dut (
         .clk(clk),
         .rst(rst),
+        .switches(16'd0),   // not used in this test
+        .leds(),            // not used in this test
         .pc_out(pc_out)
     );
 

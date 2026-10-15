@@ -14,6 +14,8 @@ module c_tb;
     cpu #(.HEX_FILE("programs/test_c.hex")) dut (
         .clk(clk),
         .rst(rst),
+        .switches(16'd0),   // not used in this test
+        .leds(),            // not used in this test
         .pc_out(pc_out)
     );
 
