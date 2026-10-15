@@ -15,7 +15,7 @@ as a personal project. Work in progress.
 - [x] Core split from memories (`rtl/cpu_core.v`)
 - [x] Runs a compiled C program (loops, function calls, byte and word loads and stores)
 - [x] Memory-mapped LEDs and switches: 3 self-checking tests
-- [ ] Run on the Basys 3 FPGA
+- [x] Run on the Basys 3 FPGA: counts on LEDs from a C program
 - [ ] 5-stage pipeline
 
 ## Running the tests
@@ -105,3 +105,28 @@ Build it and run it:
 ./programs/build.sh io_test
 verilator --binary --trace -Wall -Wno-fatal --top-module io_tb rtl/*.v tb/io_tb.sv && ./obj_dir/Vio_tb
 ```
+
+## Running on the Basys 3
+
+`board/basys3_top.v` connects the CPU to the board. An MMCM (clock generator) turns the 100 MHz board clock into 25 MHz, the center button is
+reset, and the switches pass through two flip-flops before the CPU reads them.
+`board/basys3.xdc` assigns the pins.
+
+`board/sync.sh` copies the source files to
+`C:\projects\riscv-basys3\src` for the Vivado project to use:
+
+```
+./programs/build.sh blink
+./board/sync.sh
+```
+
+Then in Vivado: Generate Bitstream, open Hardware Manager, and Program Device.
+
+Results on the Artix-7 (xc7a35t), after implementation:
+
+| | |
+|---|---|
+| LUTs | 1,013 (4.9%) |
+| LUTRAM | 172 (1.8%) |
+| Flip-flops | 98 (0.2%) |
+| Worst slack at 25 MHz | 19.474 ns (max about 48 MHz) |
